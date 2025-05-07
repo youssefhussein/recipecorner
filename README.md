@@ -7,6 +7,7 @@ npm install
 ```bash
 composer install 
 ```
+get the env file from me or generate
 ## then run dev server : 
 ```bash
 composer run dev

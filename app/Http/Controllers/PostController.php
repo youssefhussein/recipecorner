@@ -9,6 +9,7 @@ class PostController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *    / or /posts
      */
     public function index()
     {
