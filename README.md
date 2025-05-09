@@ -8,6 +8,12 @@ npm install
 composer install 
 ```
 get the env file from me or generate
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+
 ## then run dev server : 
 ```bash
 composer run dev
