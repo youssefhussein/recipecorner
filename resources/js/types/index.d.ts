@@ -41,3 +41,17 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+
+export interface Post {
+    id: number;
+    user_id: User.id;
+    name:User.name;
+    recipename: string;
+    description: string;
+    categories: string;
+    ingredients: string ;
+    created_at: Date;
+    [key: string]: unknown; // This allows for additional properties...
+}
+

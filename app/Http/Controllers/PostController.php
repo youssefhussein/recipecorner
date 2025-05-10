@@ -6,6 +6,8 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class PostController extends Controller
 {
@@ -15,7 +17,20 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::with('user')->latest()->paginate(5);
+        return Inertia::render('dashboard', [
+            'posts' => $posts->through(
+                fn($post) => [
+                    'id' => $post->id,
+                    'recipename' => $post->recipename,
+                    'ingredients' => $post->ingredients,
+                    'description' => $post->description,
+                    'categories' => $post->categories,
+                    'user' => [
+                        'name' => $post->user->name,
+                    ],
+                ]),
+        ]);
     }
 
     /**
@@ -31,24 +46,26 @@ class PostController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-      $validated = $request->validate([
-        'recipename' => 'required|string|max:255',
-        'ingredients' => 'required|string|max:255',
-        'description' => 'required|string|max:255',
-        'categories' => 'required|string|max:255',
-        'user_id' => 'required|integer'
-      ]);
+        $validated = $request->validate([
+            'recipename' => 'required|string|max:255',
+            'ingredients' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+            'categories' => 'required|string|max:255',
+        ]);
 
-      if(!$validated){
-        return redirect()->route('password.edit')->with("fai;l");
-      }
-      
-      Post::create($validated);
+        if (!$validated) {
+            return redirect()->route('password.edit')->with("fai;l");
+        }
 
-      return redirect()->route('dashboard')->with('success', 'Ninja created!');
+        $user = Auth::user();
+        $user->posts()->create(
+            $request->all()
+        );
+
+        return redirect()->route('dashboard')->with('success', 'Ninja created!');
     }
 
-    
+
 
     /**
      * Display the specified resource.

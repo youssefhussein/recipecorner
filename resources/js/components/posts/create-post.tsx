@@ -1,21 +1,17 @@
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
-
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { SharedData } from '@/types';
 import { useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 import { Button } from '../ui/button';
 
 export default function CreatePostForm() {
-    const { auth } = usePage<SharedData>().props;
 
     const { data, setData, post, processing, errors } = useForm({
         recipename: '',
         ingredients: '',
         description: '',
         categories: '',
-        user_id: auth.user.id,
     });
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
