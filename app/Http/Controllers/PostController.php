@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -27,10 +29,26 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //
+      $validated = $request->validate([
+        'recipename' => 'required|string|max:255',
+        'ingredients' => 'required|string|max:255',
+        'description' => 'required|string|max:255',
+        'categories' => 'required|string|max:255',
+        'user_id' => 'required|integer'
+      ]);
+
+      if(!$validated){
+        return redirect()->route('password.edit')->with("fai;l");
+      }
+      
+      Post::create($validated);
+
+      return redirect()->route('dashboard')->with('success', 'Ninja created!');
     }
+
+    
 
     /**
      * Display the specified resource.

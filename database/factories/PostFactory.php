@@ -19,8 +19,8 @@ class PostFactory extends Factory
     {
         return [
         "recipename" => fake()->name(),
-        "text"=> fake()->realText(100),
-        "type"=>fake()->name(),
+        "description"=> fake()->realText(100),
+        "categories"=>fake()->name(),
         "user_id"=> User::inRandomOrder()->first()->id,
         "ingredients" => fake()->text(50),
     ];

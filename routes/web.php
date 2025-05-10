@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -17,7 +18,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('post/{id}' , function($id){
         return Inertia::render("show-post");
     })->name("post.show");
+    Route::post('/post/store', [PostController::class, 'store'])->name('post.store');
+
 });
+
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';

@@ -12,9 +12,11 @@ class Post extends Model
     use HasFactory;
     protected $fillable = [
         "recipename",
-        "text",
-        "type"
+        "description",
+        "categories",
+        "ingredients",
     ];
+  
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
