@@ -1,5 +1,8 @@
 # Setup 
 setup laravel https://laravel.com/docs/12.x/installation#installing-php and nodejs
+
+# CHECK TODO.MD & commands.md files for useful stuff
+
 ## install dependencies: 
 ```bash
 npm install
