@@ -4,10 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Pagination, PaginationEllipsis, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 import AppLayout from '@/layouts/app-layout';
 import { Post, type BreadcrumbItem } from '@/types';
-import { Head, Link } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -19,7 +18,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 //prev_page_url /dashboard?page=1
 export default function Dashboard(props: { posts: { data: Post[] } }) {
     console.log(props);
-    const Testname = props.posts.data[0].user.name.slice(0, 1);
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
@@ -31,10 +29,10 @@ export default function Dashboard(props: { posts: { data: Post[] } }) {
                             <CardHeader>
                                 <CardTitle>
                                     <Avatar className='bg-white text-gray-900'>
-                    
+
                                         <AvatarFallback className='bg-white text-gray-800'  >{post.user.name.slice(0, 1)}</AvatarFallback>
                                     </Avatar>
-                                  
+
                                 </CardTitle>
                                 <CardDescription>Recipe title : {post.recipename}</CardDescription>
                             </CardHeader>
@@ -58,7 +56,7 @@ export default function Dashboard(props: { posts: { data: Post[] } }) {
                         </Card>
                     ))}
                 </div>
-               
+
             </div>
         </AppLayout>
     );

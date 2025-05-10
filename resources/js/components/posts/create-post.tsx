@@ -1,13 +1,13 @@
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useForm, usePage } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 import { Button } from '../ui/button';
 
 export default function CreatePostForm() {
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing } = useForm({
         recipename: '',
         ingredients: '',
         description: '',
