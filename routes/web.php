@@ -1,11 +1,10 @@
 <?php
 
-use Faker\Provider\ar_EG\Internet;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    return redirect("dashboard");
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {

@@ -22,6 +22,7 @@ class PostFactory extends Factory
         "text"=> fake()->realText(100),
         "type"=>fake()->name(),
         "user_id"=> User::inRandomOrder()->first()->id,
-        ];
+        "ingredients" => fake()->text(50),
+    ];
     }
 }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text("text");
             $table->string("type");
             $table->foreignId("user_id")->constrained()->onDelete("cascade");
+            $table->longText("ingredients");
             $table->timestamps();
             
         });
