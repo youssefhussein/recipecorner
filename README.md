@@ -18,4 +18,3 @@ php artisan key:generate
 ```bash
 composer run dev
 ```
-fatma was here
