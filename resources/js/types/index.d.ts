@@ -42,16 +42,36 @@ export interface User {
     [key: string]: unknown; // This allows for additional properties...
 }
 
-
 export interface Post {
     id: number;
     user_id: User.id;
-    name:User.name;
+    user: {
+        name: string;
+    };
     recipename: string;
     description: string;
     categories: string;
-    ingredients: string ;
+    ingredients: string;
     created_at: Date;
     [key: string]: unknown; // This allows for additional properties...
 }
-
+export interface PaginatedResponse<T> {
+    current_page: number;
+    data: T[];
+    first_page_url: string;
+    from: number;
+    last_page: number;
+    last_page_url: string;
+    links: {
+     url: string | null;
+     label: string;
+     active: boolean;
+    }[];
+    next_page_url: string | null;
+    path: string;
+    per_page: number;
+    prev_page_url: string | null;
+    to: number;
+    total: number;
+   }
+   
