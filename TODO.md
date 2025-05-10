@@ -8,5 +8,8 @@
 - [x] make home page like twitter 
 - [x] create form to post something cool
 - [x] save post to db
-- [ ] add voting on posts
-- [ ] add comments to posts
+- [ ] add voting on posts -voting
+- [ ] add comments to posts 
+- [ ] add post types
+- [ ] recipe data type -fatma
+- [ ] pagination -youssef

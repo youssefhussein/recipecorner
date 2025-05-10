@@ -13,7 +13,9 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-
+```bash
+php artisan migrate
+```
 ## then run dev server : 
 ```bash
 composer run dev
