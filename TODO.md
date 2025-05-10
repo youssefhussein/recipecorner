@@ -5,8 +5,8 @@
 
 # things to do
 - [ ] install faker food library 
-- [ ] make home page like twitter 
-- [ ] create form to post something cool
-- [ ] save post to db
+- [x] make home page like twitter 
+- [x] create form to post something cool
+- [x] save post to db
 - [ ] add voting on posts
 - [ ] add comments to posts
