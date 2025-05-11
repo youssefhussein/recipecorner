@@ -23,3 +23,11 @@ php artisan migrate
 ```bash
 composer run dev
 ```
+## for malak
+
+```bash
+php artisan serve
+```
+```bash
+bun run dev
+```
