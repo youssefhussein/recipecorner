@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string("recipename");
-            $table->text("description");
-            $table->string("categories");
+            $table->string("description");
+            $table->enum("categories" , ["breakfast","dessert" , "lunch" , "dinner" , "vegeterian"]);
             $table->foreignId("user_id")->constrained()->onDelete("cascade");
             $table->longText("ingredients");
             $table->timestamps();
