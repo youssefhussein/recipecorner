@@ -65,6 +65,64 @@ class PostController extends Controller
         return redirect()->route('dashboard')->with('success', 'Ninja created!');
     }
 
+    /**
+     * Search for posts by name or ingredients.
+     */
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $posts = Post::with('user')
+            ->where('recipename', 'like', "%{$query}%")
+            ->orWhere('ingredients', 'like', "%{$query}%")
+            ->latest()
+            ->paginate(5);
+
+        return Inertia::render('dashboard', [
+            'posts' => $posts->through(
+                fn($post) => [
+                    'id' => $post->id,
+                    'recipename' => $post->recipename,
+                    'ingredients' => $post->ingredients,
+                    'description' => $post->description,
+                    'categories' => $post->categories,
+                    'user' => [
+                        'name' => $post->user->name,
+                    ],
+                ]),
+            'search' => $query,
+        ]);
+    }
+
+    /**
+     * Filter posts by category.
+     */
+    public function filter(Request $request)
+    {
+        $category = $request->input('category');
+
+        $posts = Post::with('user')
+            ->where('categories', $category)
+            ->latest()
+            ->paginate(5);
+
+        return Inertia::render('dashboard', [
+            'posts' => $posts->through(
+                fn($post) => [
+                    'id' => $post->id,
+                    'recipename' => $post->recipename,
+                    'ingredients' => $post->ingredients,
+                    'description' => $post->description,
+                    'categories' => $post->categories,
+                    'user' => [
+                        'name' => $post->user->name,
+                    ],
+                ]),
+            'selectedCategory' => $category,
+        ]);
+    }
+
+
 
 
     /**
