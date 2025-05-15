@@ -18,7 +18,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name("post.show");
     Route::post('/post/store', [PostController::class, 'store'])->name('post.store');
 
+    Route::get('/posts/search', [PostController::class, 'search'])->name('posts.search');
+    Route::get('/posts/filter', [PostController::class, 'filter'])->name('posts.filter');
+
 });
+
 
 
 require __DIR__.'/settings.php';
