@@ -1,4 +1,4 @@
-import Post from '@/components/posts/postcard';
+
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
