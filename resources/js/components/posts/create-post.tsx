@@ -1,70 +1,45 @@
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
-import { Button } from '../ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useState } from 'react';
+import ProductForm from './ProductForm';
+import RecipeForm from './RecipeForm';
 
 export default function CreatePostForm() {
+    const [postType, setPostType] = useState(null);
 
-    const { data, setData, post, processing } = useForm({
-        recipename: '',
-        ingredients: '',
-        description: '',
-        categories: '',
-    });
-    const submit: FormEventHandler = (e) => {
-        e.preventDefault();
-        console.log('Form Data:', data); // DEBUG: Check data before sending
-        post(route('post.store'), {
-            onSuccess: () => {
-                console.log('Data successfully sent');
-            },
-            onError: (error) => {
-                console.log('Error sending data:', error);
-            },
-        });
+    const renderForm = () => {
+        if (postType === 'recipe') return <RecipeForm />;
+        if (postType === 'product') return <ProductForm />;
+        return null;
     };
+
     return (
-        <>
-            <div>
-                <form onSubmit={submit} method="Post">
-                    <Label htmlFor="recipe"> Share your recipe with the world</Label>
-                    <Input
-                        name="recipename"
-                        id="recipe"
-                        type="text"
-                        value={data.recipename}
-                        onChange={(e) => setData('recipename', e.target.value)}
-                    ></Input>
-                    <Input
-                        name="ingredients"
-                        id="ingredients"
-                        type="text"
-                        value={data.ingredients}
-                        onChange={(e) => setData('ingredients', e.target.value)}
-                    ></Input>
-                    <Input id="description" type="text" value={data.description} onChange={(e) => setData('description', e.target.value)}></Input>
-                    <Select name="categories" value={data.categories} onValueChange={(value) => setData('categories', value)}>
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select a fruit" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                                <SelectLabel>Fruits</SelectLabel>
-                                <SelectItem value="apple">Apple</SelectItem>
-                                <SelectItem value="banana">Banana</SelectItem>
-                                <SelectItem value="blueberry">Blueberry</SelectItem>
-                                <SelectItem value="grapes">Grapes</SelectItem>
-                                <SelectItem value="pineapple">Pineapple</SelectItem>
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                    <Button type="submit" className="w-full" disabled={processing}>
-                        {processing ? 'Submitting...' : 'Submit'}
-                    </Button>{' '}
-                </form>
+        <div className="min-h-screen bg-gray-50 py-8">
+            <div className="container mx-auto px-4">
+                <div className="mb-8 text-center">
+                    <h1 className="mb-4 text-3xl font-bold text-gray-900">Create a New Post</h1>
+                    <p className="text-gray-600">Share your recipes or promote your products with the community</p>
+                </div>
+
+                <Card className="mx-auto mb-8 w-full max-w-md">
+                    <CardHeader>
+                        <CardTitle className="text-center">Select Post Type</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <Select value={postType || ''} onValueChange={setPostType}>
+                            <SelectTrigger>
+                                <SelectValue placeholder="Choose post type" />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="recipe">Recipe</SelectItem>
+                                <SelectItem value="product">Product</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </CardContent>
+                </Card>
+
+                {renderForm()}
             </div>
-        </>
+        </div>
     );
 }
