@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Post extends Model
+abstract class Post extends Model
 {
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory;
@@ -16,8 +16,11 @@ class Post extends Model
         "categories",
         "ingredients",
         "user_id",
+        "type",
     ];
-  
+
+    abstract public function getPostType(): string;
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -29,7 +29,8 @@ class PostController extends Controller
                     'user' => [
                         'name' => $post->user->name,
                     ],
-                ]),
+                ]
+            ),
         ]);
     }
 
@@ -89,7 +90,8 @@ class PostController extends Controller
                     'user' => [
                         'name' => $post->user->name,
                     ],
-                ]),
+                ]
+            ),
             'search' => $query,
         ]);
     }
@@ -117,7 +119,8 @@ class PostController extends Controller
                     'user' => [
                         'name' => $post->user->name,
                     ],
-                ]),
+                ]
+            ),
             'selectedCategory' => $category,
         ]);
     }
