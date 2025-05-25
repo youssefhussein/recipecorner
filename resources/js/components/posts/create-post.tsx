@@ -1,12 +1,11 @@
-import { Input } from '../ui/input';
-import { Label } from '../ui/label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
 import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
 
 export default function CreatePostForm() {
-
     const { data, setData, post, processing } = useForm({
         recipename: '',
         ingredients: '',
@@ -47,16 +46,16 @@ export default function CreatePostForm() {
                     <Input id="description" type="text" value={data.description} onChange={(e) => setData('description', e.target.value)}></Input>
                     <Select name="categories" value={data.categories} onValueChange={(value) => setData('categories', value)}>
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select a fruit" />
+                            <SelectValue placeholder="Select a category" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                <SelectLabel>Fruits</SelectLabel>
-                                <SelectItem value="apple">Apple</SelectItem>
-                                <SelectItem value="banana">Banana</SelectItem>
-                                <SelectItem value="blueberry">Blueberry</SelectItem>
-                                <SelectItem value="grapes">Grapes</SelectItem>
-                                <SelectItem value="pineapple">Pineapple</SelectItem>
+                                <SelectLabel>Categories</SelectLabel>
+                                <SelectItem value="breakfast">Breakfast</SelectItem>
+                                <SelectItem value="dessert">Dessert</SelectItem>
+                                <SelectItem value="lunch">Lunch</SelectItem>
+                                <SelectItem value="dinner">Dinner</SelectItem>
+                                <SelectItem value="vegetarian">Vegetarian</SelectItem>
                             </SelectGroup>
                         </SelectContent>
                     </Select>

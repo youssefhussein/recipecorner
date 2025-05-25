@@ -9,7 +9,7 @@
 - [ ] add comments to posts - youssef
 - [ ] add post types
 - [ ] recipe data type -fatma
-- [ ] pagination -youssef
+- [x] pagination -youssef
 - [ ] search/filter by category
 - [ ] observer pattern email event listener
 - [ ] optional selling stuff on the post 
@@ -19,3 +19,11 @@
 - [x] make home page like twitter 
 - [x] create form to post something cool
 - [x] save post to db
+
+
+### breakdown to steps
+add comments to posts - youssef
+1. create a modal for the post onclick
+render post ui in that modal
+add comment form
+add comment uilist
