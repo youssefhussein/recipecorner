@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
+
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +22,7 @@ class PostController extends Controller
 
         return Inertia::render('dashboard', [
             'posts' => $posts->through(
-                fn ($post) => [
+                fn($post) => [
                     'id' => $post->id,
                     'recipename' => $post->recipename,
                     'ingredients' => $post->ingredients,
@@ -29,7 +31,8 @@ class PostController extends Controller
                     'user' => [
                         'name' => $post->user->name,
                     ],
-                ]),
+                ]
+            ),
         ]);
     }
 
@@ -80,7 +83,7 @@ class PostController extends Controller
 
         return Inertia::render('dashboard', [
             'posts' => $posts->through(
-                fn ($post) => [
+                fn($post) => [
                     'id' => $post->id,
                     'recipename' => $post->recipename,
                     'ingredients' => $post->ingredients,
@@ -89,7 +92,8 @@ class PostController extends Controller
                     'user' => [
                         'name' => $post->user->name,
                     ],
-                ]),
+                ]
+            ),
             'search' => $query,
         ]);
     }
@@ -108,7 +112,7 @@ class PostController extends Controller
 
         return Inertia::render('dashboard', [
             'posts' => $posts->through(
-                fn ($post) => [
+                fn($post) => [
                     'id' => $post->id,
                     'recipename' => $post->recipename,
                     'ingredients' => $post->ingredients,
@@ -117,7 +121,8 @@ class PostController extends Controller
                     'user' => [
                         'name' => $post->user->name,
                     ],
-                ]),
+                ]
+            ),
             'selectedCategory' => $category,
         ]);
     }
@@ -130,12 +135,34 @@ class PostController extends Controller
         return response()->json(['likes' => $post->likes]);
     }
 
+
+    public function userPosts(Post $post) {}
+
     /**
      * Display the specified resource.
      */
     public function show(Post $post)
     {
         //
+
+        $user = Auth::user();
+        // $posts = User::with('posts')->latest()->paginate(5);
+        $posts = Post::whereBelongsTo($user)->paginate(5);
+
+        return Inertia::render('Profile', [
+            'posts' => $posts->through(
+                fn($post) => [
+                    'id' => $post->id,
+                    'recipename' => $post->recipename,
+                    'ingredients' => $post->ingredients,
+                    'description' => $post->description,
+                    'categories' => $post->categories,
+                    'user' => [
+                        'name' => $post->user->name,
+                    ],
+                ]
+            ),
+        ]);
     }
 
     /**

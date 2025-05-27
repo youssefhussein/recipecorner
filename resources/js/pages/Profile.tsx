@@ -8,7 +8,6 @@ import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, DashboardProps, Post } from '@/types';
 import { Head } from '@inertiajs/react';
-import axios from 'axios';
 import { useState } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -23,27 +22,40 @@ const breadcrumbs: BreadcrumbItem[] = [
     // },
 ];
 
-export default function Dashboard({ posts }: DashboardProps) {
+export default function Profile({ posts }: DashboardProps) {
     const [likes, setLikes] = useState<{ [postId: number]: number }>(Object.fromEntries(posts.data.map((post) => [post.id, post.likes ?? 0])));
 
-    const handleLike = async (postId: number) => {
-        try {
-            setLikes((prev) => ({
-                ...prev,
-                [postId]: (prev[postId] ?? 0) + 1,
-            }));
+    // const handleLike = async (postId: number) => {
+    //     try {
+    //         setLikes((prev) => ({
+    //             ...prev,
+    //             [postId]: (prev[postId] ?? 0) + 1,
+    //         }));
 
-            await axios.post(`/posts/${postId}/like`);
-        } catch (error) {
-            console.error('Error liking post:', error);
-        }
-    };
+    //         await axios.post(`/posts/${postId}/like`);
+    //     } catch (error) {
+    //         console.error('Error liking post:', error);
+    //     }
+    // };
 
+    if (posts.total == 0) {
+        return (
+            <AppLayout breadcrumbs={[{ title: 'Profile', href: '/profile' }]}>
+                <Head title="Your Posts" />
+                <div className="flex h-full flex-col items-center justify-center gap-6 p-10 text-center">
+                    <h2 className="text-3xl font-bold text-gray-800">You haven’t posted anything yet</h2>
+                    <p className="max-w-md text-gray-500">No worries — you can start by creating your very first post below!</p>
+                    <div className="w-full max-w-xl">
+                        <CreatePostForm />
+                    </div>
+                </div>
+            </AppLayout>
+        );
+    }
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
             <div className="flex h-full flex-1 flex-col justify-center gap-4 rounded-xl p-4">
-                <CreatePostForm />
                 <div className="flex flex-col gap-4">
                     {posts.data.map((post: Post) => (
                         <Card key={post.id}>
