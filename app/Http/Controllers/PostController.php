@@ -57,7 +57,7 @@ class PostController extends Controller
         ]);
 
         if (! $validated) {
-            return redirect()->route('password.edit')->with('fail');
+            return redirect()->route('dashboard')->with('fail');
         }
 
         $user = Auth::user();
@@ -65,7 +65,7 @@ class PostController extends Controller
             $request->all()
         );
 
-        return redirect()->route('dashboard')->with('success', 'Ninja created!');
+        return redirect()->route('dashboard')->with('success', 'Post created!');
     }
 
     /**
