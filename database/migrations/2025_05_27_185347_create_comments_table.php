@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->text('body');
-            $table->unsignedSmallInteger('rating');
+            $table->unsignedSmallInteger('rating')->nullable(true);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('commentable_id');
             $table->string('commentable_type');
             $table->timestamps();

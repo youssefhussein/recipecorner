@@ -1,10 +1,9 @@
 import { PaginateDashboard } from '@/components/paginateDashboard';
+import CommentForm from '@/components/posts/CommentForm';
 import CreatePostForm from '@/components/posts/create-post';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { type BreadcrumbItem, DashboardProps, Post } from '@/types';
 import { Head } from '@inertiajs/react';
@@ -28,13 +27,19 @@ export default function Dashboard({ posts }: DashboardProps) {
 
     const handleLike = async (postId: number) => {
         try {
+            const response = await axios.post(`/posts/${postId}/like`);
+
+            // Update with the actual value from the server
             setLikes((prev) => ({
                 ...prev,
-                [postId]: (prev[postId] ?? 0) + 1,
+                [postId]: response.data.likes,
             }));
-
-            await axios.post(`/posts/${postId}/like`);
         } catch (error) {
+            // Revert the optimistic update on error
+            setLikes((prev) => ({
+                ...prev,
+                [postId]: (prev[postId] ?? 0) - 1, // Revert the increment
+            }));
             console.error('Error liking post:', error);
         }
     };
@@ -61,13 +66,17 @@ export default function Dashboard({ posts }: DashboardProps) {
                                     <CardDescription>Recipe description: {post.description}</CardDescription>
                                     <CardDescription>Recipe category: {post.categories}</CardDescription>
                                 </ul>
-                                <div className="mt-4 flex flex-col space-y-1.5">
-                                    <Label htmlFor="comment">Comment</Label>
-                                    <Input id="comment" placeholder="Leave your Comment here" />
-                                </div>
+                                <CommentForm postData={post} />
+                                <ul>
+                                    <li>{post.comments?.at(0)?.user.name}</li>
+                                    <li>{post.comments?.at(0)?.body}</li>
+                                    <li>{post.comments?.at(0)?.rating}</li>
+                                </ul>
                             </CardContent>
                             <CardFooter className="flex justify-between">
-                                <Button>Like ({likes[post.id]})</Button>
+                                <Button variant="outline" onClick={() => handleLike(post.id)}>
+                                    Like ({likes[post.id] ?? 0})
+                                </Button>
                             </CardFooter>
                         </Card>
                     ))}

@@ -44,6 +44,18 @@ export interface User {
     [key: string]: unknown; // This allows for additional properties...
 }
 
+export interface Comment {
+    id: number;
+    body: string;
+    rating: number;
+    user: {
+        name: string;
+    };
+    created_at: string;
+    updated_at?: string;
+    [key: string]: unknown; // This allows for additional properties...
+}
+
 export interface Post {
     id: number;
     user_id: User.id;
@@ -55,7 +67,8 @@ export interface Post {
     categories: string;
     ingredients: string;
     created_at: Date;
-  likes: number; // ✅ Add this line
+    likes: number;
+    comments?: Comment[]; // Add comments array to Post type
     [key: string]: unknown; // This allows for additional properties...
 }
 

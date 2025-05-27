@@ -18,7 +18,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('user')->latest()->paginate(5);
+        $posts = Post::with(['user', 'comments.user'])->latest()->paginate(5);
 
         return Inertia::render('dashboard', [
             'posts' => $posts->through(
@@ -28,11 +28,21 @@ class PostController extends Controller
                     'ingredients' => $post->ingredients,
                     'description' => $post->description,
                     'categories' => $post->categories,
+                    'likes' => $post->likes ?? 0,
                     'user' => [
                         'name' => $post->user->name,
                     ],
-                ]
-            ),
+                    'comments' => $post->comments->map(fn($comment) => [
+                        'id' => $comment->id,
+                        'body' => $comment->body,
+                        'rating' => $comment->rating,
+                        'user' => [
+                            'name' => $comment->user->name,
+                        ],
+                        'created_at' => $comment->created_at,
+                        'updated_at' => $comment->updated_at,
+                    ]),
+                ]),
         ]);
     }
 
@@ -89,11 +99,12 @@ class PostController extends Controller
                     'ingredients' => $post->ingredients,
                     'description' => $post->description,
                     'categories' => $post->categories,
+                    'likes' => $post->likes ?? 0,
                     'user' => [
                         'name' => $post->user->name,
                     ],
-                ]
-            ),
+
+                ]),
             'search' => $query,
         ]);
     }
@@ -118,6 +129,7 @@ class PostController extends Controller
                     'ingredients' => $post->ingredients,
                     'description' => $post->description,
                     'categories' => $post->categories,
+                    'likes' => $post->likes ?? 0,
                     'user' => [
                         'name' => $post->user->name,
                     ],
@@ -127,7 +139,7 @@ class PostController extends Controller
         ]);
     }
 
-    public function like($id)
+    public function like($id): \Illuminate\Http\JsonResponse
     {
         $post = Post::findOrFail($id);
         $post->increment('likes');

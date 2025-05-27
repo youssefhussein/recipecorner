@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -21,7 +22,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/posts/search', [PostController::class, 'search'])->name('posts.search');
     Route::get('/posts/filter', [PostController::class, 'filter'])->name('posts.filter');
     Route::post('/posts/{id}/like', [PostController::class, 'like'])->name('posts.like');
-    Route::get('/Profile', [PostController::class, 'show'])->name('posts.show');
+    Route::get('/Profile', [PostController::class, 'show'])->name('posts.show');  
+    Route::post("/dashboard/comment/store" , [CommentController::class, 'store'])->name('comment.store');
+
 });
 
 require __DIR__ . '/settings.php';

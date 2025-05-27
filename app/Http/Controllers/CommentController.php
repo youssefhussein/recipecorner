@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -29,10 +31,26 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'comment' => 'required|string|max:125',
-            'rating' => 'required|integer|max:5',
+            'body' => 'required|string|max:125',
+            'rating' => 'integer|max:5',
+            'post_id' => 'required|exists:posts,id',
         ]);
 
+        $post = \App\Models\Post::findOrFail($validated['post_id']);
+
+        $comment = new Comment();
+        $comment->body = $validated['body'];
+        if ($validated['rating'] >=1) {
+            $comment->rating = $validated['rating'];
+        }else {
+            $comment->rating = null;
+        }
+        $comment->user_id = auth()->id();
+
+        // Save the comment using the morphMany relationship
+        $post->comments()->save($comment);
+
+        return redirect()->back()->with('success', 'Comment added successfully!');
     }
 
     /**
