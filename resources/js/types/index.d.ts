@@ -55,7 +55,7 @@ export interface Post {
     categories: string;
     ingredients: string;
     created_at: Date;
-
+  likes: number; // ✅ Add this line
     [key: string]: unknown; // This allows for additional properties...
 }
 

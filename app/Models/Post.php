@@ -16,6 +16,7 @@ class Post extends Model
         "categories",
         "ingredients",
         "user_id",
+         "likes",
     ];
   
     public function user(): BelongsTo

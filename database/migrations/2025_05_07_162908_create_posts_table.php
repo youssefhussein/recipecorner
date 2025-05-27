@@ -18,6 +18,8 @@ return new class extends Migration
             $table->enum("categories" , ["breakfast","dessert" , "lunch" , "dinner" , "vegeterian"]);
             $table->foreignId("user_id")->constrained()->onDelete("cascade");
             $table->longText("ingredients");
+        $table->unsignedInteger('likes')->default(0);
+
             $table->timestamps();
             
         });

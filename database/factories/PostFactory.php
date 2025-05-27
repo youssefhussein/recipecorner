@@ -24,6 +24,8 @@ class PostFactory extends Factory
         "categories"=> fake()->randomElement( ["breakfast","dessert" , "lunch" , "dinner" , "vegeterian"]),
         "user_id"=> User::inRandomOrder()->first()->id,
         "ingredients" => fake()->text(50),
-    ];
+        "likes" => fake()->numberBetween(1,2500),
+
+    ]; 
     }
 }

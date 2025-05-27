@@ -29,6 +29,7 @@ export default function CreatePostForm() {
             <div>
                 <form onSubmit={submit} method="Post">
                     <Label htmlFor="recipe"> Share your recipe with the world</Label>
+
                     <Input
                         name="recipename"
                         id="recipe"
@@ -36,20 +37,27 @@ export default function CreatePostForm() {
                         value={data.recipename}
                         onChange={(e) => setData('recipename', e.target.value)}
                     ></Input>
+       <Label htmlFor="ingredients"> Share recipe ingredients with the world</Label>
+
                     <Input
+
                         name="ingredients"
                         id="ingredients"
                         type="text"
                         value={data.ingredients}
                         onChange={(e) => setData('ingredients', e.target.value)}
                     ></Input>
+        <Label htmlFor="description"> Write the description of your recipe</Label>
+
                     <Input id="description" type="text" value={data.description} onChange={(e) => setData('description', e.target.value)}></Input>
                     <Select name="categories" value={data.categories} onValueChange={(value) => setData('categories', value)}>
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Select a category" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectGroup>
+                  
+                            <SelectGroup>     
+
                                 <SelectLabel>Categories</SelectLabel>
                                 <SelectItem value="breakfast">Breakfast</SelectItem>
                                 <SelectItem value="dessert">Dessert</SelectItem>

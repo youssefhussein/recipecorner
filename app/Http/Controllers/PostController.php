@@ -123,6 +123,17 @@ class PostController extends Controller
     }
 
 
+public function like($id)
+{
+    $post = Post::findOrFail($id);
+    $post->increment('likes');
+    return response()->json(['likes' => $post->likes]);
+}
+
+
+
+
+
 
 
     /**

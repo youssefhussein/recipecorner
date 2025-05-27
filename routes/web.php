@@ -20,6 +20,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/posts/search', [PostController::class, 'search'])->name('posts.search');
     Route::get('/posts/filter', [PostController::class, 'filter'])->name('posts.filter');
+    Route::post('/posts/{id}/like', [PostController::class, 'like'])->name('posts.like');
+
 
 });
 
