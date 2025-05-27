@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
          ->create();
 
         $this->call([
-            PostSeeder::class
+            PostSeeder::class,
+            CommentSeeder::class
         ]);
     }
 }
