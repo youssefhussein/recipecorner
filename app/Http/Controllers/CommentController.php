@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -12,7 +13,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        return Comment::all();
     }
 
     /**
@@ -28,7 +29,14 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'post_id' => 'required|integer|exists:posts,id',
+            'content' => 'required|string|max:1000',
+        ]);
+
+        $comment = Comment::create($validated);
+
+        return response()->json($comment, 201);
     }
 
     /**
@@ -36,7 +44,7 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        return $comment;
     }
 
     /**
@@ -52,7 +60,13 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        //
+        $validated = $request->validate([
+            'content' => 'required|string|max:1000',
+        ]);
+
+        $comment->update($validated);
+
+        return response()->json($comment);
     }
 
     /**
@@ -60,6 +74,7 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+        return response()->json(['message' => 'Comment deleted successfully.']);
     }
 }
