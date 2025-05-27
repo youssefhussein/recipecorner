@@ -28,7 +28,11 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'comment' => 'required|string|max:125',
+            'rating'=> 'required|integer|max:5',
+        ])
+
     }
 
     /**

@@ -54,7 +54,7 @@ class PostController extends Controller
         ]);
 
         if (!$validated) {
-            return redirect()->route('password.edit')->with("fai;l");
+            return redirect()->route('password.edit')->with("fail");
         }
 
         $user = Auth::user();
@@ -123,17 +123,12 @@ class PostController extends Controller
     }
 
 
-public function like($id)
-{
-    $post = Post::findOrFail($id);
-    $post->increment('likes');
-    return response()->json(['likes' => $post->likes]);
-}
-
-
-
-
-
+    public function like($id)
+    {
+        $post = Post::findOrFail($id);
+        $post->increment('likes');
+        return response()->json(['likes' => $post->likes]);
+    }
 
 
     /**
