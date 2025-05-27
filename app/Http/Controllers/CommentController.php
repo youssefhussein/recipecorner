@@ -30,8 +30,8 @@ class CommentController extends Controller
     {
         $validated = $request->validate([
             'comment' => 'required|string|max:125',
-            'rating'=> 'required|integer|max:5',
-        ])
+            'rating' => 'required|integer|max:5',
+        ]);
 
     }
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +17,10 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::with('user')->latest()->paginate(5);
+
         return Inertia::render('dashboard', [
             'posts' => $posts->through(
-                fn($post) => [
+                fn ($post) => [
                     'id' => $post->id,
                     'recipename' => $post->recipename,
                     'ingredients' => $post->ingredients,
@@ -53,8 +53,8 @@ class PostController extends Controller
             'categories' => 'required|string|max:255',
         ]);
 
-        if (!$validated) {
-            return redirect()->route('password.edit')->with("fail");
+        if (! $validated) {
+            return redirect()->route('password.edit')->with('fail');
         }
 
         $user = Auth::user();
@@ -80,7 +80,7 @@ class PostController extends Controller
 
         return Inertia::render('dashboard', [
             'posts' => $posts->through(
-                fn($post) => [
+                fn ($post) => [
                     'id' => $post->id,
                     'recipename' => $post->recipename,
                     'ingredients' => $post->ingredients,
@@ -108,7 +108,7 @@ class PostController extends Controller
 
         return Inertia::render('dashboard', [
             'posts' => $posts->through(
-                fn($post) => [
+                fn ($post) => [
                     'id' => $post->id,
                     'recipename' => $post->recipename,
                     'ingredients' => $post->ingredients,
@@ -122,14 +122,13 @@ class PostController extends Controller
         ]);
     }
 
-
     public function like($id)
     {
         $post = Post::findOrFail($id);
         $post->increment('likes');
+
         return response()->json(['likes' => $post->likes]);
     }
-
 
     /**
      * Display the specified resource.

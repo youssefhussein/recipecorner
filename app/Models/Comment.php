@@ -12,8 +12,8 @@ class Comment extends Model
     use HasFactory;
 
     protected $fillable = [
-        "body",
-        "rating",
+        'body',
+        'rating',
     ];
 
     public function commentable(): MorphTo

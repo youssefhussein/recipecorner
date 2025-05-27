@@ -11,20 +11,22 @@ class Post extends Model
 {
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory;
+
     protected $fillable = [
-        "recipename",
-        "description",
-        "categories",
-        "ingredients",
-        "user_id",
-        "likes",
-        "comments"
+        'recipename',
+        'description',
+        'categories',
+        'ingredients',
+        'user_id',
+        'likes',
+        'comments',
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
+
     public function comments(): MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable');

@@ -18,10 +18,10 @@ class CommentFactory extends Factory
     public function definition(): array
     {
         return [
-            "body" => fake()->text(50),
-            "rating" =>fake()->numberBetween(1,5),
-            "commentable_id" => Post::inRandomOrder()->first()->id,
-            "commentable_type" => "App\Models\Post",
+            'body' => fake()->text(50),
+            'rating' => fake()->numberBetween(1, 5),
+            'commentable_id' => Post::inRandomOrder()->first()->id,
+            'commentable_type' => "App\Models\Post",
 
         ];
     }

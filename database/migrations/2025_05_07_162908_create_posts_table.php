@@ -13,15 +13,15 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string("recipename");
-            $table->string("description");
-            $table->enum("categories" , ["breakfast","dessert" , "lunch" , "dinner" , "vegeterian"]);
-            $table->foreignId("user_id")->constrained()->onDelete("cascade");
-            $table->longText("ingredients");
-        $table->unsignedInteger('likes')->default(0);
+            $table->string('recipename');
+            $table->string('description');
+            $table->enum('categories', ['breakfast', 'dessert', 'lunch', 'dinner', 'vegeterian']);
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->longText('ingredients');
+            $table->unsignedInteger('likes')->default(0);
 
             $table->timestamps();
-            
+
         });
     }
 

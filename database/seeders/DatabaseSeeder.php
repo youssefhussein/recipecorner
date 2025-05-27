@@ -16,15 +16,15 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Admin User',
             'email' => 'admin@example.com',
-            'password'=>'adminpass123'
+            'password' => 'adminpass123',
         ]);
-         User::factory()
-         ->count(20)
-         ->create();
+        User::factory()
+            ->count(20)
+            ->create();
 
         $this->call([
             PostSeeder::class,
-            CommentSeeder::class
+            CommentSeeder::class,
         ]);
     }
 }

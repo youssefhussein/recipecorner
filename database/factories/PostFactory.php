@@ -13,19 +13,19 @@ class PostFactory extends Factory
     /**
      * Define the model's default state.
      *
-     * 
+     *
      * @return array<string, mixed>
      */
     public function definition(): array
     {
         return [
-        "recipename" => fake()->name(),
-        "description"=>fake()->text(),
-        "categories"=> fake()->randomElement( ["breakfast","dessert" , "lunch" , "dinner" , "vegeterian"]),
-        "user_id"=> User::inRandomOrder()->first()->id,
-        "ingredients" => fake()->text(50),
-        "likes" => fake()->numberBetween(1,2500),
+            'recipename' => fake()->name(),
+            'description' => fake()->text(),
+            'categories' => fake()->randomElement(['breakfast', 'dessert', 'lunch', 'dinner', 'vegeterian']),
+            'user_id' => User::inRandomOrder()->first()->id,
+            'ingredients' => fake()->text(50),
+            'likes' => fake()->numberBetween(1, 2500),
 
-    ]; 
+        ];
     }
 }
