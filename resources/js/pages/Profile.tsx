@@ -23,7 +23,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Profile({ posts }: DashboardProps) {
-    const [likes, setLikes] = useState<{ [postId: number]: number }>(Object.fromEntries(posts.data.map((post) => [post.id, post.likes ?? 0])));
+    const [likes] = useState<{ [postId: number]: number }>(Object.fromEntries(posts.data.map((post) => [post.id, post.likes ?? 0])));
 
     // const handleLike = async (postId: number) => {
     //     try {

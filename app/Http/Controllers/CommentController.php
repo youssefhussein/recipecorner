@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -36,13 +35,13 @@ class CommentController extends Controller
             'post_id' => 'required|exists:posts,id',
         ]);
 
-        $post = \App\Models\Post::findOrFail($validated['post_id']);
+        $post = Post::findOrFail($validated['post_id']);
 
-        $comment = new Comment();
+        $comment = new Comment;
         $comment->body = $validated['body'];
-        if ($validated['rating'] >=1) {
+        if ($validated['rating'] >= 1) {
             $comment->rating = $validated['rating'];
-        }else {
+        } else {
             $comment->rating = null;
         }
         $comment->user_id = auth()->id();
