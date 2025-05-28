@@ -71,11 +71,19 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Comment $comment)
+    // Update an existing comment
+    public function update(Request $request, $id)
     {
-        //
-    }
+        $comment = Comment::findOrFail($id);
 
+        $validated = $request->validate([
+            'content' => 'required|string|max:1000',
+        ]);
+
+        $comment->update($validated);
+
+        return response()->json($comment);
+    }
     /**
      * Remove the specified resource from storage.
      */
