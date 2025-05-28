@@ -194,8 +194,16 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(Request $request)
     {
-        //
+        $post = Post::find($request['postID']);
+        $user = Auth::user();
+        if ($user->id == $post->user_id) {
+            $post->delete();
+
+            return redirect()->route('dashboard')->with('success', 'Post deleted!');
+        } else {
+            return redirect()->route('dashboard')->with('fail', 'You are not authorized to delete this post!');
+        }
     }
 }

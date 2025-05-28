@@ -1,4 +1,3 @@
-
 import { type SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
@@ -46,9 +45,6 @@ export default function Welcome() {
                         )}
                     </nav>
                 </header>
-                <main>
-                    <Post></Post>
-                </main>
             </div>
         </>
     );
