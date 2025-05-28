@@ -10,7 +10,7 @@ npm install
 ```bash
 composer install 
 ```
-get the env file from me or generate
+## generate env file
 ```bash
 cp .env.example .env
 php artisan key:generate
@@ -18,6 +18,10 @@ php artisan key:generate
 
 ```bash
 php artisan migrate
+```
+## build the frontend (for vite manifest)
+```bash
+npm run build
 ```
 ## then run dev server : 
 ```bash
