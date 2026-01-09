@@ -7,6 +7,7 @@ setup laravel https://laravel.com/docs/12.x/installation#installing-php and node
 ```bash
 npm install
 ```
+
 ```bash
 composer install 
 ```
